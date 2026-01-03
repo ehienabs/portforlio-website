@@ -8,15 +8,44 @@ import { useToast } from "@/components/ui/use-toast";
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    // Reset form
-    (e.target as HTMLFormElement).reset();
+    setIsSubmitting(true);
+    
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    // Get access key from environment variable
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+    
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        form.reset();
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or email me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -37,20 +66,20 @@ const Contact = () => {
                     <label htmlFor="name" className="text-sm font-medium">
                       Your Name
                     </label> 
-                    <Input className="border-2 hover:border-wikimedia hover:shadow-md transition-all" id="name" placeholder="Ciroma Chukwuma" required />
+                    <Input className="border-2 hover:border-wikimedia hover:shadow-md transition-all" id="name" name="name" placeholder="Ciroma Chukwuma" required />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium">
                       Your Email
                     </label>
-                    <Input className="border-2 hover:border-wikimedia hover:shadow-md transition-all" id="email" type="email" placeholder="ciroma@example.com" required />
+                    <Input className="border-2 hover:border-wikimedia hover:shadow-md transition-all" id="email" name="email" type="email" placeholder="ciroma@example.com" required />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="subject" className="text-sm font-medium">
                     Subject
                   </label>
-                  <Input className="h-full border-2 hover:border-wikimedia hover:shadow-md transition-all" id="subject" placeholder="How can I help you?" required />
+                  <Input className="h-full border-2 hover:border-wikimedia hover:shadow-md transition-all" id="subject" name="subject" placeholder="How can I help you?" required />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium">
@@ -58,13 +87,14 @@ const Contact = () => {
                   </label>
                   <Textarea
                     id="message"
+                    name="message"
                     placeholder="Let me know how I can help..."
                     className="min-h-32 border-2 hover:border-wikimedia hover:shadow-md transition-all"
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full bg-wikimedia text-white hover:bg-wikimedia-dark">
-                  Send Message
+                <Button type="submit" className="w-full bg-wikimedia text-white hover:bg-wikimedia-dark" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </CardContent>
