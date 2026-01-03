@@ -9,7 +9,7 @@ import Publications from "@/components/Publications";
 import Speaking from "@/components/Speaking";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import Community from "@/components/Community";
+import Current from "@/components/Current";
 import Certifications from "@/components/Certifications";
 
 const Index = () => {
@@ -19,12 +19,12 @@ const Index = () => {
       <main>
         <Hero />
         <About />
+        <Current />
         <Skills />
-        <Certifications />
-        <Projects />
         <Publications />
-        <Community />
         <Speaking />
+        <Projects />
+        <Certifications />
         <Contact />
       </main>
       <Footer />

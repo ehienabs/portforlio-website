@@ -104,9 +104,9 @@ const Publications = () => {
   return (
     <section id="publications" className="py-16 sm:py-24 bg-secondary/30">
       <div className="section-container bg-gray-100">
-        <h2 className="section-title">Published Articles</h2>
+        <h2 className="section-title">Publications</h2>
         <p className="section-subtitle">
-          Technical articles and guides I've authored across various platforms
+          Articles I've authored across various platforms
         </p>
 
         <div className="space-y-8 mt-12">

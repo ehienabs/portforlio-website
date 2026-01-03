@@ -17,12 +17,18 @@ const Hero = () => {
             Ehi Enabulele
             <br /> <span className="text-wikimedia">Software Engineer</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 lg:mb-10">
-            Software Engineer, passionate about open data and engineering systems that support data products.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-6">
+            Building the data infrastructure behind modern AI systems.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-6">
+            I work on transforming human-curated knowledge into machine-readable datasets used for training, evaluating, and grounding large language models. I focus largely on data quality, provenance, and the societal impact of how public knowledge is reused in AI.
+          </p>
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-8 lg:mb-10">
+            Software Engineer at the Wikimedia Foundation, working on structured Wikipedia datasets for AI and research.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button className="bg-wikimedia hover:bg-wikimedia-dark text-white px-8 py-6" asChild>
-              <a href="#projects">View My Work</a>
+              <a href="#community">View My Work</a>
             </Button>
             <Button variant="outline" className="px-8 py-6" asChild>
               <a href="#publications">Read My Articles</a>
